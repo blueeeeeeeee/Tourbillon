@@ -4,17 +4,11 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,10 +23,8 @@ import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         add = (ImageButton) findViewById(R.id.ImageButton_Add);
         LinearLayout linearLayout_Time = findViewById(R.id.LinearLayout_Time);
+
+        //打印当前数据库
+        printClassDatabase();
 
         // 查询空闲教室
         button_setting = findViewById(R.id.ImageButton_Settings);
@@ -71,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
         //填写日期
         TextView textView_date = findViewById(R.id.TextView_date);
+        TextView textView_week = findViewById(R.id.TextView_Week);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         curDate = new Date(System.currentTimeMillis());
         textView_date.setText(formatter.format(curDate));
+        textView_week.setText("第"+ClassManager.getCurWeek()+"周");
 
         //添加按钮设置
         add.setOnClickListener(new View.OnClickListener() {
@@ -108,15 +105,46 @@ public class MainActivity extends AppCompatActivity {
             public void onEventClick(Class_t event) {
                 Log.i(TAG, "onEventClick:"+event.c_name);
                 DetailDialog.showEventDetailDialog(MainActivity.this, event
-                , new DetailDialog.DialogButtonOnClickListener() {
-                    @Override
-                    public void onDelete(Class_t event1){
-                        ClassManager.delete(event1);
-                    }
+                        , new DetailDialog.DialogButtonOnClickListener() {
+                        @Override
+                        public void onDelete(Class_t event1){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage(String.format(getString(R.string.sure_to_delete), event1.getC_name()));
+                            builder.setTitle(getString(R.string.warning));
 
-                    public void onEdit(Class_t event1){
-                        //todo:modify
-                    }
+                            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                    ClassManager.delete(event1);
+                                }
+                            });
+                            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                }
+                            });
+                            builder.create().show();
+                        }
+
+                        public void onEdit(Class_t event1){
+                            //modify
+                            if(event1.c_isClass){
+                                Intent intent = new Intent(MainActivity.this, ClassActivity.class);
+                                intent.putExtra("action", ClassActivity.ACTION_MODIFY);
+                                intent.putExtra("startweek",event1.getC_startWeek() );
+                                intent.putExtra("time",event1.getC_time());
+                                intent.putExtra("day",event1.getC_day());
+                                startActivity(intent);
+                            }
+                            else{
+                                Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                                intent.putExtra("action", ClassActivity.ACTION_MODIFY);
+                                intent.putExtra("startweek",event1.getC_startWeek() );
+                                intent.putExtra("time",event1.getC_time());
+                                intent.putExtra("day",event1.getC_day());
+                                startActivity(intent);
+                            }
+                        }
                 });
             }
         });
@@ -134,36 +162,36 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onWindowFocusChanged: header width:" + view_weekHeader.getWidth());
         //设置初始滚动位置
         ScrollView scrollView = findViewById(R.id.scrollView_main);
-        scrollView.scrollTo(0, 1440);
+        scrollView.scrollTo(0, 1280);
     }
 
 
-    private void insertData(String id, String name, Integer time, Integer day) {
-        classOp.insertData(id, name, time, 2, 1, 16, day, " ", " ");
-    }
+//    private void insertData(String id, String name, Integer time, Integer day) {
+//        classOp.insertData(id, name, time, 2, 1, 16, day, " ", " ");
+//    }
 
-    private void addTestData() {
-        // 加入测试课程
-        insertData("Gaoshu", "高数", 3, 1);
-        insertData("RuanGong", "软件工程", 1, 2);
-        insertData("RuanGong2", "软件工程", 3, 2);
-        classOp.insertData("ShuJuKu", "数据库", 5, 3, 1, 16, 3, "东上院101", "x老师");
-        classOp.insertData("KC4", "课程4", 3, 2, 1, 8, 4, "东上院101", "x老师");
-        classOp.insertData("KC5", "课程5", 10, 3, 1, 16, 5, "东上院101", "x老师");
-        classOp.insertData("KC6", "课程6", 8, 2, 1, 16, 6, "东上院101", "x老师");
-        //insertData(6, "课程7", 1, 2, 1, 16, 7, "东上院102", "x老师");
-        printClassDatabase();
-    }
+//    private void addTestData() {
+//        // 加入测试课程
+//        insertData("Gaoshu", "高数", 3, 1);
+//        insertData("RuanGong", "软件工程", 1, 2);
+//        insertData("RuanGong2", "软件工程", 3, 2);
+//        classOp.insertData("ShuJuKu", "数据库", 5, 3, 1, 16, 3, "东上院101", "x老师");
+//        classOp.insertData("KC4", "课程4", 3, 2, 1, 8, 4, "东上院101", "x老师");
+//        classOp.insertData("KC5", "课程5", 10, 3, 1, 16, 5, "东上院101", "x老师");
+//        classOp.insertData("KC6", "课程6", 8, 2, 1, 16, 6, "东上院101", "x老师");
+//        //insertData(6, "课程7", 1, 2, 1, 16, 7, "东上院102", "x老师");
+//        printClassDatabase();
+//    }
 
     public void drawClassBoxes() {
         //从数据库拿到课程数据保存在链表
-        List<Class_t> classes = classOp.getCurrentWeekClasses();
+        List<Class_t> classes = ClassManager.getCurrentWeekClasses();
         ScheduleView scheduleView = findViewById(R.id.ScheduleView);
         scheduleView.setEvents(classes);
     }
 
     public void printClassDatabase() {
-        List<Class_t> classes = classOp.query();
+        List<Class_t> classes = ClassManager.query();
         for (Class_t c : classes) {
             Log.i(TAG, "printClassDatabase: " + c.toString());
         }
@@ -174,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
         popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
         popupMenu.show();
-
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -209,10 +236,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.settings_queryLibrary) {
                     Intent intent = new Intent(MainActivity.this, LibraryQueryActivity.class);
                     startActivity(intent);
-
-                } else if (id == R.id.settings_others) {
-                    // to do
                 }
+//              else if (id == R.id.settings_others) {
+//                    // to do
+//                }
                 return false;
             }
         });
@@ -235,13 +262,10 @@ public class MainActivity extends AppCompatActivity {
             dialogButtonOnClickListener.onNegative();
             dialog_editWeek.dismiss();
         });
-        AlertDialog.Builder builder_editWeek = new AlertDialog.Builder(activity, R.style.dialog);
+        AlertDialog.Builder builder_editWeek = new AlertDialog.Builder(activity);
         builder_editWeek.setView(view);
         builder_editWeek.setCancelable(true);
         dialog_editWeek = builder_editWeek.create();
-        dialog_editWeek.getWindow().setDimAmount(0.5f);
-        dialog_editWeek.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog_editWeek.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog_editWeek.setCanceledOnTouchOutside(true);
         dialog_editWeek.show();
     }

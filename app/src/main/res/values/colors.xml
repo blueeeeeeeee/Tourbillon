@@ -18,4 +18,7 @@
     <color name="colorDivider">#AAAAAA</color>
     <color name="colorButton">#940F0F</color> //#A30E0E
     <color name="colorLibrary">#CD1515</color> //#A30E0E
+    <color name="transparent">#00000000</color>
+    <color name="grey">#FF878C8C</color>
+    <color name="lightgrey">#FFBFBFBF</color>
 </resources>

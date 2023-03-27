@@ -7,21 +7,32 @@
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Application_schedule/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.181" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Application_schedule/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2395" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Application_schedule/app/src/main/res/layout/activity_main.xml" value="0.2744479495268139" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/bg_round_corner.xml" value="0.1185" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.135" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.2105" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.135" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.2105" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2105" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/activity_class.xml" value="0.264" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/activity_library_query.xml" value="0.2210144927536232" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/activity_login.xml" value="0.2210144927536232" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/activity_main.xml" value="0.24094202898550723" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/activity_schdule.xml" value="0.25" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/class_detail.xml" value="0.2" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/edit_week.xml" value="0.14479166666666668" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/event_detail.xml" value="0.2210144927536232" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/time_information.xml" value="0.25" />
         <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/layout/wdit_week.xml" value="0.4" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/menu/course_menu.xml" value="0.264" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/menu/popup_menu.xml" value="0.264" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/menu/schedule_menu.xml" value="0.264" />
+        <entry key="..\:/GoodGoodStudyDayDayUp/new/android/applications/Tourbillon/app/src/main/res/menu/settings_menu.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/Android/Tourbillon/app/src/main/res/layout/class_detail.xml" value="0.1" />
+        <entry key="..\:/Users/Android/Tourbillon/app/src/main/res/layout/event_detail.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

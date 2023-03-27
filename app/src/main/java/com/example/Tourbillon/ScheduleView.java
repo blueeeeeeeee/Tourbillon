@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.TextPaint;
@@ -228,6 +229,8 @@ public class ScheduleView extends View {
         eventTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         eventTextPaint.setColor(eventTextColor);
         eventTextPaint.setTextSize(eventTextSize);
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "font/simkai.ttf");
+        eventTextPaint.setTypeface(font);
         eventBgPaint = new Paint();
     }
 

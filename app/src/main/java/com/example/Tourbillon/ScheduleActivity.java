@@ -3,6 +3,7 @@ package com.example.Tourbillon;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private int step;
     private String[] dayItems;
     private String[] endItems;
-    private char[] weekCode = new char[Class_t.MAX_WEEKS];
+    private char[] weekCode = "000000000000000000".toCharArray();
     private int action;
     private Class_t course;
 
@@ -47,7 +48,7 @@ public class ScheduleActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Schedule");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> ret());
 
         etSchedule = findViewById(R.id.et_schedule);
         etDetail = findViewById(R.id.et_detail);
@@ -74,24 +75,39 @@ public class ScheduleActivity extends AppCompatActivity {
             step = 1;
             isWeekSelected[week - 1] = true;
             course = new Class_t();
+            weekCode[0]='1';
         } else if (action == ACTION_DETAIL) {
-            //course = classOp.query(...);
+            day = intent.getIntExtra("day", 1);
+            start = intent.getIntExtra("time", 1);
+            int week = intent.getIntExtra("startweek", 1);
+            course = ClassManager.query(week,day,start);
+        } else if (action == ACTION_MODIFY){
+            day = intent.getIntExtra("day", 1);
+            start = intent.getIntExtra("time", 1);
+            int week = intent.getIntExtra("startweek", 1);
+            course = ClassManager.query(week,day,start);
+            ClassManager.delete(course);
         }
         actionChange();
         refreshTextViewAfterDialog();
     }
 
     private void loadInitData() {
-        if (action == ACTION_DETAIL) {
+        if (action != ACTION_INSERT) {
             etSchedule.setText(course.c_name);
             etDetail.setText(course.c_detail);
             day = course.c_day;
             start = course.c_time;
             step = course.c_duration;
             end = start + step - 1;
-            for (int i = course.c_startWeek; i < course.c_endWeek; i++) {
+            weekCode = course.getWeekCode().toCharArray();
+            for (int i = 0; i < Class_t.MAX_WEEKS; i++) {
                 isWeekSelected[i] = weekCode[i] == '1';
             }
+        }
+        else {
+            for (int i = 0; i < Class_t.MAX_WEEKS; i++)
+                weekCode[i]=(isWeekSelected[i])?'1':'0';
         }
 
         for (int i = 1; i <= Class_t.MAX_WEEKS; i++) {
@@ -205,25 +221,29 @@ public class ScheduleActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.please_select_period), Toast.LENGTH_SHORT).show();
             return false;
         }
-        course.c_name = etSchedule.getText().toString().trim();
-        course.c_time= start;
-        course.c_duration=step;
-        course.c_day=day;
-        course.c_detail=etDetail.getText().toString().trim();
-        //如果week不是一个范围那这里要改
-        course.c_startWeek=weekCode[0];
-        course.c_endWeek=weekCode[weekCode.length-1];
-        if(insert)
-            return classOp.insert(course);
-        else
-            return classOp.update(course);
+        course.setC_name(etSchedule.getText().toString().trim());
+        course.setC_time(start);
+        course.setC_duration(step);
+        course.setC_day(day);
+        course.setC_isClass(false);
+        course.setC_detail(etDetail.getText().toString().trim());
+        course.setWeekCode(new String(weekCode));
+        int startWeek = 0, endWeek=17;
+        while (startWeek<18 && weekCode[startWeek]=='0')
+            startWeek++;
+        while (endWeek>=0 && weekCode[endWeek]=='0')
+            endWeek--;
+        course.setC_startWeek(startWeek+1);
+        course.setC_endWeek(endWeek+1);
+        course.setC_isClass(false);
+        return ClassManager.insert(course);
     }
 
 
     private void deleteCourse() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.warning))
-                .setMessage(String.format(getString(R.string.sure_to_delete), course.c_name))
+                .setMessage(String.format(getString(R.string.sure_to_delete), course.getC_name()))
                 .setPositiveButton(R.string.ok, (dialog, which) -> {
                     classOp.delete(course);
                     finish();
@@ -256,6 +276,8 @@ public class ScheduleActivity extends AppCompatActivity {
                     finish();
             }
         } else if (item.getItemId() == R.id.action_cancel) {
+            if (action==ACTION_MODIFY)
+                ClassManager.insert(course);
             action = ACTION_DETAIL;
             invalidateOptionsMenu();
             actionChange();
@@ -265,7 +287,6 @@ public class ScheduleActivity extends AppCompatActivity {
             action = ACTION_MODIFY;
             invalidateOptionsMenu();
             actionChange();
-
         }
         return true;
     }
@@ -279,5 +300,11 @@ public class ScheduleActivity extends AppCompatActivity {
         tvDay.setEnabled(action != ACTION_DETAIL);
 
         loadInitData();
+    }
+
+    private void ret(){
+        if (action == ACTION_MODIFY)
+            ClassManager.insert(course);
+        finish();
     }
 }

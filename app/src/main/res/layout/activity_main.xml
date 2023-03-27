@@ -4,6 +4,7 @@
     android:id="@+id/LinearLayout_Main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -23,7 +24,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_add_24"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/Button_Add_description" />
 
 
@@ -32,23 +33,23 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_get_app_24"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/Button_Import_Description" />
 
-        <ImageButton
-            android:id="@+id/ImageButton_Export"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_exit_to_app_24"
-            android:background="@color/white"
-            android:contentDescription="@string/Button_Export_Description" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/ImageButton_Export"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@drawable/ic_baseline_exit_to_app_24"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:contentDescription="@string/Button_Export_Description" />-->
 
         <ImageButton
             android:id="@+id/ImageButton_Settings"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_more_vert_24"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/Button_Settings_Description" />
 
     </LinearLayout>
@@ -165,24 +166,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            app:addBgColor="#dff4ff"
-            app:addTextColor="#47a1f6"
-            app:addTextSize="26sp"
-            app:bgColor="#ffffff"
+            app:bgColor="#00ffffff"
             app:columnNumber="7"
-            app:currentTimeColor="#5e636c"
-            app:currentTimeTextColor="#ffffff"
-            app:currentTimeTextSize="10sp"
             app:eventTextBgColor="#85cdca"
-            app:eventTextBgLineColor="#dfdfdf"
-            app:eventTextColor="#FF000000"
-            app:eventTextSize="12sp"
+            app:eventTextBgLineColor="#525252"
+            app:eventTextColor="#FFFFFFFF"
+            app:eventTextSize="14sp"
             app:hourTextBgColor="#ffffff"
             app:hourTextColor="#525252"
             app:hourTextSize="10sp"
-            app:lineColor="#dfdfdf"
-            app:lineSize="1dp"
-            app:pastTimeColor="#eff5f9"
+            app:lineColor="#525252"
+            app:lineSize="2dp"
             app:rowHeight="60dp" />
     </ScrollView>
 </LinearLayout>

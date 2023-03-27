@@ -14,10 +14,10 @@
         android:orderInCategory="200"
         android:title="@string/query_library"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/settings_others"
-        android:orderInCategory="200"
-        android:title="@string/others"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/settings_others"-->
+<!--        android:orderInCategory="200"-->
+<!--        android:title="@string/others"-->
+<!--        app:showAsAction="ifRoom" />-->
 
 </menu>

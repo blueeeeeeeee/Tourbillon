@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_round_corner">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
@@ -15,38 +16,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/TextView_detailDialog_Week"
+            android:id="@+id/TextView_eventDetail_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/ic_baseline_calendar_today_24"
-            android:drawablePadding="10dp"
+            android:textSize="15sp"
             android:layout_margin="10dp"/>
 
         <TextView
-            android:id="@+id/TextView_detailDialog_Time"
+            android:id="@+id/TextView_eventDetail_Time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:drawableLeftCompat="@drawable/ic_baseline_access_time_24"
             android:drawablePadding="10dp"
             android:layout_margin="10dp"/>
 
         <TextView
-            android:id="@+id/TextView_detailDialog_Teacher"
+            android:id="@+id/TextView_eventDetail_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/ic_baseline_perm_identity_24"
-            android:drawablePadding="10dp"
-            android:layout_margin="10dp"/>
-
-        <TextView
-            android:id="@+id/TextView_detailDialog_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            app:drawableLeftCompat="@drawable/ic_baseline_location_on_24"
+            android:textSize="18sp"
+            app:drawableLeftCompat="@drawable/ic_baseline_chat_24"
             android:drawablePadding="10dp"
             android:layout_margin="10dp"/>
 
@@ -54,10 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginVertical="30dp">
+            android:layout_marginVertical="20dp">
 
             <ImageButton
-                android:id="@+id/button_detailDialog_delete"
+                android:id="@+id/button_eventDetail_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -65,7 +55,7 @@
                 android:src="@drawable/ic_baseline_delete_24" />
 
             <ImageButton
-                android:id="@+id/button_detailDialog_edit"
+                android:id="@+id/button_eventDetail_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
